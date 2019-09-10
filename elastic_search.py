@@ -36,10 +36,6 @@ def seg_sentence(sentence):
 def get_points(words):
     bc = BertClient()
     bert_vecs = bc.encode(words)
-    #pca = PCA(n_components=2, random_state=0)
-    #reduced_vecs = pca.fit_transform(bert_vecs)
-    #assert len(words) == len(reduced_vecs)
-    #return reduced_vecs
     return bert_vecs
 
 def get_closed_point(pivots,samples):
@@ -81,12 +77,6 @@ def search_by_id(es,ID,part):
 if __name__ == '__main__':
     stop_words_path = '/home/ky/patent_search/CHN/stop_words.txt'
     es = Elasticsearch([{'host':'202.112.195.82','port':9200}])
-    #question_id = 'CN106854453A'
-    #question_return = es.search(index='cpatentv4',body={'query':{'match':{'docid':'CN101553679A'}},"_source":['abs']})
-    #print( question_return['hits']['hits'][0].get('_source').get('abs'))
-    #question_vecs = get_points(seg_sentence(question_abs))
-
-    #with open('./data/cn_cn_citation_find.1.txt','r') as txt_file:
     with open('./data/100_2000_first10w.txt','r') as txt_file:
         question_answer_map = {}
         question_list =[]
@@ -107,13 +97,8 @@ if __name__ == '__main__':
         q_points = get_points(seg_sentence(qsentence))
         real_aid = question_answer_map.get(qid)
         answer_scores_map = {}
-        #with tqdm(total=len(set(answer_list))) as pbar:
-        #answer_list_short = random.choices(answer_list,k=100)
-        #test_list =list(set(question_answer_map.get(qid) + answer_list_short))
-        #with tqdm(total=len(test_list)) as pbar:
 
         ans_id_list = question_answer_map.get(qid)
-        #nanswer_list_short = [e for e in answer_list_short if e not in ans_id_list]
 
         print('____________{} test start:'.format(qid))
         with tqdm(total=len(question_answer_map.get(qid))) as pbar:
@@ -126,21 +111,8 @@ if __name__ == '__main__':
             except:
                 pass
                 answer_scores_map[aid] = 999999999
-         #   pbar.update(1)
             pbar.update(1)
         question_scores_map[qid] = answer_scores_map
-       # print('_______{} not answer_scores : '.format(qid))
-       # for naid in nanswer_list_short:
-       #      try:
-       #         asentence = search_by_id(es,naid,'abs')
-       #         a_points = get_points(seg_sentence(asentence))
-       #         score = get_closed_point(q_points,a_points)
-       #         answer_scores_map[aid] = score
-       #         print(score)
-       #      except:
-       #         pass
-       #         answer_scores_map[aid] = 999999999
-         #
 
     with open('./data/result_claims.json','w') as fp:
         json.dump(question_scores_map,fp,indent = 4)
