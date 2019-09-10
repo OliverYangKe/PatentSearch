@@ -4,11 +4,11 @@ add bert embedding to patent documentaion search
 
 #Bert-embeding provided by Dr.hanxiao   https://github.com/hanxiao/bert-as-service 
 
-installa
+install
 
 pip install bert-serving-server  # server
-
 pip install bert-serving-client  # client, independent of `bert-serving-server`
+
 
 
 start server
