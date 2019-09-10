@@ -1,6 +1,6 @@
 # PatentSearch
-add bert embedding to patent documentaion search
-
+ This project aims to search similiary patent documents when a new patent is uploaded.
+ 
 
 #Bert-embeding provided by Dr.hanxiao   https://github.com/hanxiao/bert-as-service 
 
