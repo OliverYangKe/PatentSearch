@@ -33,7 +33,7 @@ def get_closed_point(pivots,samples):
     for p in pivots:
         dist,_ = tree.query([p], k=1)
         score += dist.item(0,0)
-        B
+
     return score/len(pivots)
 
 

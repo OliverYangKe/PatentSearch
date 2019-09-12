@@ -51,6 +51,7 @@ class BertDistanceCalculator(Thread):
                         samples_scores[sample] = score
                     except:
                         pass
+                        print('fail')
                         samples_scores[sample] =9999
                 question_scores[q_id]=samples_scores
             finally:
@@ -62,7 +63,7 @@ def main():
     stopwordspath = "./data/stopwords.txt"
     stopwords = stopwordlist(stopwordspath)
     es = Elasticsearch([{'host':'202.112.195.82','port':9200}])
-    part = 'title'     #title, abs , claims, description
+    part = 'claims'     #title, abs , claims, description
     questions_samples_map = question_samples('./data/100_2000_first10w.txt')
     question_scores={}
     queue = Queue()
@@ -84,7 +85,7 @@ def main():
 
 if __name__ == '__main__':
    question_scores=main()
-   with open('./data/result_test','w') as fp:
+   with open('./data/result_claims','w') as fp:
        json.dump(question_scores,fp,indent=4)
 
 
