@@ -14,7 +14,7 @@ with open('./data/cn_cn_citation_find.txt','r') as standard_result:
 
 
 #print(question_answer_map)
-json_file = open('./data/result_abs.json','r')
+json_file = open('./tools/local/abs_socres.json','r')
 json_data = json.load(json_file)
 
 test_keys = json_data.keys()

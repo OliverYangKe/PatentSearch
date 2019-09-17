@@ -70,7 +70,7 @@ def main():
     #logging.info('Tool %s seconds', time() -ts)
     #f.close()
     queue = Queue()
-    for x in range(8):
+    for x in range(100):
         worker = PointsToLocal(queue,es,part,stopwords)
         worker.daemon = True
         worker.start()
@@ -84,7 +84,7 @@ def main():
 
 if __name__ == '__main__':
     a = main()
-    with open('./local/abs_question.json','w') as fp:
-        json.dump(a,fp,indent=4)
+    with open('/media/data/ky/local/abs_test_1.json','w') as fp:
+        json.dump(a,fp)
 
 
