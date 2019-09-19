@@ -67,7 +67,7 @@ def main():
     questions_samples_map = question_samples('./data/100_2000_first10w.txt')
     question_scores={}
     queue = Queue()
-    for x in range(8):
+    for x in range(50):
         worker = BertDistanceCalculator(queue,es,stopwords,part,questions_samples_map)
         worker.daemon = True
         worker.start()
@@ -85,7 +85,7 @@ def main():
 
 if __name__ == '__main__':
    question_scores=main()
-   with open('./data/result_claims','w') as fp:
-       json.dump(question_scores,fp,indent=4)
+   with open('./data/result'+part+'.txt','w') as fp:
+       json.dump(question_scores,fp)
 
 

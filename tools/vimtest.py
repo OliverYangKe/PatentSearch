@@ -43,8 +43,8 @@ class ScoreCalculator(Thread):
         self.f = f
  
     
-    def score(self,key,all_questions_scores):
-        print(key)
+    def score(self):
+        key,all_questions_scores = self.queue.get()
         pivots = self.questions_dict.get(key)
         question_score={}
         p = np.asarray(pivots)  
@@ -53,7 +53,7 @@ class ScoreCalculator(Thread):
         value = 0
         n = 0
         for s in JsonSlicer(self.f,(None,None),path_mode='full'):
-            print(len(s[2]))
+            print(s)
             if flag == None or s[0]!= flag:
                 if flag == None:
                     flag = s[0]
@@ -81,9 +81,8 @@ class ScoreCalculator(Thread):
 
     def run(self):
         while True:
-            (key,all_questions_scores) = self.queue.get()
             try:
-                self.score(key,all_questions_scores)
+                self.score()
             finally:
                 self.queue.task_done()
 
@@ -91,9 +90,9 @@ class ScoreCalculator(Thread):
 def main():
     questions_dict = get_points('/media/data/ky/local/claims_questioon.json')
     all_questions_scores = {}
-    f = open('/media/data/ky/local/claims_tn.json','r')
+    f = open('/media/data/ky/local/claims_test.json','r')
     queue = Queue()
-    for x in range(1):
+    for x in range(48):
         worker = ScoreCalculator(queue,questions_dict,f)
         worker.daemon = True
         worker.start()
