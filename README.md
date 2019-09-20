@@ -51,9 +51,18 @@
   
   ## Encoding
   
-  '''
   
   [bert_as_service](https://github.com/hanxiao/bert-as-service)
+  ```
    bc = BertClient()
    emb = bc.encode(word)
-  '''
+  ```
+  图像展示
+   >对词向量进行降维
+   ```
+   pca=PCA(n_components=2,random_state=None)
+   points = pca.fit_transform(bert_vecs)
+   ```
+  ![问题与答案](https://imgur.com/QmVlqfh)
+  
+  ![问题与负样本](https://imgur.com/lw8j3Or)
