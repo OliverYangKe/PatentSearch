@@ -55,7 +55,7 @@
   [bert_as_service](https://github.com/hanxiao/bert-as-service)
   ```
    bc = BertClient()
-   emb = bc.encode(word)
+   bert_vecs = bc.encode(words)
   ```
   图像展示
    >对词向量进行降维
@@ -63,6 +63,17 @@
    pca=PCA(n_components=2,random_state=None)
    points = pca.fit_transform(bert_vecs)
    ```
-  ![问题与答案](https://imgur.com/QmVlqfh)
+  ![问题与答案](https://imgur.com/QmVlqfh.png)
   
-  ![问题与负样本](https://imgur.com/lw8j3Or)
+  ![问题与负样本](https://imgur.com/lw8j3Or.png)
+   
+   >在样例文档中取claims进行展示，同时取了动词（\V）和名词（\n）
+   
+   
+   ## 文档相似度算法
+   
+   逻辑为：考题提取词的向量空间与被测文档的提取词向量空间的距离计算，距离越近越为相似。
+   
+   #### 方法一： 考题词只寻找在测试文档里最近的一个词
+   
+   
