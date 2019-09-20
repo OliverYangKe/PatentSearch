@@ -13,7 +13,7 @@ def seg_sentence(sentence,stopwords):
     outstr = ''
     for word in sentence_seged:
         if word not in stopwords:
-            if word!='\t' and word.flag == 'n':
+            if word!='\t' and (word.flag == 'n' or word.flag == 'v'):
                 outstr += word.word
                 outstr += " "
     return list(set(outstr.split(' ')[:-1]))
